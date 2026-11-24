@@ -1,0 +1,1146 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finora — Master Your Money</title>
+
+    <meta name="description"
+        content="Finora is your personal finance dashboard for managing money, tracking expenses and achieving savings goals.">
+
+    <meta name="theme-color" content="#101512">
+
+    <!-- Custom favicon -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23C9F477'/%3E%3Cpath d='M15 45L28 30L37 37L49 19M38 19H49V30' fill='none' stroke='%23101512' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- External libraries -->
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+
+    <!-- Main JavaScript -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+
+            <a href="#overview" class="brand">
+                <span class="brand-icon">
+                    <i data-lucide="chart-no-axes-combined"></i>
+                </span>
+                <span>finora<span class="brand-dot">.</span></span>
+            </a>
+
+            <div class="workspace-label">
+                WORKSPACE
+            </div>
+
+            <nav class="sidebar-nav" aria-label="Main navigation">
+
+                <button class="nav-link active" data-page="overview">
+                    <i data-lucide="layout-dashboard"></i>
+                    Overview
+                </button>
+
+                <button class="nav-link" data-page="transactions">
+                    <i data-lucide="arrow-left-right"></i>
+                    Transactions
+                </button>
+
+                <button class="nav-link" data-page="budgets">
+                    <i data-lucide="wallet"></i>
+                    Budgets
+                </button>
+
+                <button class="nav-link" data-page="savings">
+                    <i data-lucide="target"></i>
+                    Savings goals
+                </button>
+
+                <button class="nav-link" data-page="analytics">
+                    <i data-lucide="chart-pie"></i>
+                    Analytics
+                </button>
+
+                <button class="nav-link" data-page="calendar">
+                    <i data-lucide="calendar-days"></i>
+                    Calendar
+                </button>
+
+                <button class="nav-link" data-page="recurring">
+                    <i data-lucide="repeat"></i>
+                    Recurring bills
+                </button>
+
+                <div class="workspace-label">
+                    PREFERENCES
+                </div>
+
+                <button class="nav-link" data-page="settings">
+                    <i data-lucide="settings"></i>
+                    Settings
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="sidebar-message">
+                    <i data-lucide="sparkles"></i>
+                    <h3>Small steps. Big goals.</h3>
+                    <p>Build a better financial future, one day at a time.</p>
+                </div>
+
+                <p class="version">Finora v1.0</p>
+
+            </div>
+
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <!-- HEADER -->
+            <header class="topbar">
+
+                <div class="header-text">
+                    <span class="eyebrow">YOUR FINANCIAL WORKSPACE</span>
+                    <h1 id="pageTitle">Financial overview.</h1>
+                    <p id="pageSubtitle">Master your money. Own your future.</p>
+                </div>
+
+                <div class="header-actions">
+
+                    <button class="icon-button" id="themeToggle"
+                        aria-label="Switch color theme">
+                        <i data-lucide="sun"></i>
+                    </button>
+
+                    <button class="primary-button" id="addTransactionBtn">
+                        <i data-lucide="plus"></i>
+                        <span>Add transaction</span>
+                    </button>
+
+                    <button class="icon-button mobile-menu" id="menuToggle"
+                        aria-label="Open navigation" aria-expanded="false">
+                        <i data-lucide="menu"></i>
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- OVERVIEW PAGE -->
+            <section class="page active" id="overview">
+
+                <div class="section-toolbar">
+                    <div>
+                        <span class="eyebrow">FINANCIAL SUMMARY</span>
+                        <h2>Your money at a glance.</h2>
+                    </div>
+
+                    <input type="month" id="overviewMonth"
+                        aria-label="Select summary month">
+                </div>
+
+                <!-- SUMMARY CARDS -->
+                <div class="summary-grid">
+
+                    <article class="summary-card balance-card">
+                        <div class="card-top">
+                            <span>TOTAL BALANCE</span>
+                            <i data-lucide="wallet"></i>
+                        </div>
+
+                        <h2 id="totalBalance">₹0.00</h2>
+                        <p>Income minus expenses</p>
+
+                        <div class="balance-footer">
+                            <span>YOUR MONEY. YOUR CONTROL.</span>
+                            <i data-lucide="arrow-up-right"></i>
+                        </div>
+                    </article>
+
+                    <article class="summary-card income-card">
+                        <div class="card-top">
+                            <span>TOTAL INCOME</span>
+                            <i data-lucide="arrow-down-left"></i>
+                        </div>
+
+                        <h2 id="totalIncome">₹0.00</h2>
+                        <p>Income this month</p>
+                    </article>
+
+                    <article class="summary-card expense-card">
+                        <div class="card-top">
+                            <span>TOTAL EXPENSES</span>
+                            <i data-lucide="arrow-up-right"></i>
+                        </div>
+
+                        <h2 id="totalExpenses">₹0.00</h2>
+                        <p>Expenses this month</p>
+                    </article>
+
+                    <article class="summary-card savings-card">
+                        <div class="card-top">
+                            <span>SAVINGS RATE</span>
+                            <i data-lucide="piggy-bank"></i>
+                        </div>
+
+                        <h2 id="savingsRate">0%</h2>
+                        <p>Percentage of income retained</p>
+                    </article>
+
+                </div>
+
+                <!-- OVERVIEW CHARTS -->
+                <div class="charts-grid">
+
+                    <article class="panel cashflow-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">CASH FLOW</span>
+                                <h2>Income vs expenses</h2>
+                                <p>Understand where your money goes.</p>
+                            </div>
+
+                            <select id="cashflowPeriod" aria-label="Cash flow period">
+                                <option value="6">Last 6 months</option>
+                                <option value="12">Last 12 months</option>
+                            </select>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="cashflowChart" role="img"
+                                aria-label="Monthly income and expenses chart"></canvas>
+                        </div>
+
+                    </article>
+
+                    <article class="panel spending-panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">BREAKDOWN</span>
+                                <h2>Spending by category</h2>
+                            </div>
+                            <i data-lucide="chart-pie"></i>
+                        </div>
+
+                        <div class="doughnut-container">
+                            <canvas id="spendingChart" role="img"
+                                aria-label="Expenses by category chart"></canvas>
+                        </div>
+
+                        <div id="spendingLegend" class="spending-legend"></div>
+
+                    </article>
+
+                </div>
+
+                <!-- RECENT TRANSACTIONS -->
+                <article class="panel recent-transactions">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">ACTIVITY</span>
+                            <h2>Recent transactions</h2>
+                            <p>Keep track of your latest financial activity.</p>
+                        </div>
+
+                        <button class="secondary-button" data-page="transactions">
+                            View all
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table class="transaction-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="recentTransactionList"></tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="empty-state" id="recentEmpty">
+                        <i data-lucide="receipt-text"></i>
+                        <h3>No transactions yet</h3>
+                        <p>Add your first transaction to get started.</p>
+                    </div>
+
+                </article>
+
+                <!-- FINANCIAL INSIGHTS -->
+                <article class="panel insight-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">SMART INSIGHTS</span>
+                            <h2>Know your money better.</h2>
+                        </div>
+                        <i data-lucide="sparkles"></i>
+                    </div>
+
+                    <div id="financialInsights">
+                        <p>Add transactions to unlock personalized spending insights.</p>
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- TRANSACTIONS PAGE -->
+            <section class="page" id="transactions" hidden>
+
+                <article class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">MONEY ACTIVITY</span>
+                            <h2>All transactions</h2>
+                            <p>Manage every rupee coming in and going out.</p>
+                        </div>
+
+                        <button class="secondary-button" id="exportCsvBtn">
+                            <i data-lucide="download"></i>
+                            Export CSV
+                        </button>
+                    </div>
+
+                    <div class="filter-bar">
+
+                        <div class="search-field">
+                            <i data-lucide="search"></i>
+                            <input type="search" id="transactionSearch"
+                                placeholder="Search transactions..."
+                                aria-label="Search transactions">
+                        </div>
+
+                        <select id="transactionTypeFilter" aria-label="Filter transaction type">
+                            <option value="all">All types</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expenses</option>
+                        </select>
+
+                        <select id="transactionCategoryFilter" aria-label="Filter category">
+                            <option value="all">All categories</option>
+                        </select>
+
+                        <input type="month" id="transactionMonthFilter"
+                            aria-label="Filter transactions by month">
+
+                        <button class="secondary-button" id="clearFiltersBtn">
+                            Clear filters
+                        </button>
+
+                    </div>
+
+                    <div class="table-wrapper">
+
+                        <table class="transaction-table">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="transactionList"></tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="empty-state" id="transactionsEmpty">
+                        <i data-lucide="receipt-text"></i>
+                        <h3>No transactions found</h3>
+                        <p>Your financial activity will appear here.</p>
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- BUDGETS PAGE -->
+            <section class="page" id="budgets" hidden>
+
+                <div class="section-toolbar">
+
+                    <div>
+                        <span class="eyebrow">SPEND MINDFULLY</span>
+                        <h2>Monthly budgets</h2>
+                        <p>Set limits and stay in control of your spending.</p>
+                    </div>
+
+                    <button class="primary-button" id="addBudgetBtn">
+                        <i data-lucide="plus"></i>
+                        Create budget
+                    </button>
+
+                </div>
+
+                <div class="panel budget-summary">
+
+                    <div class="budget-stat">
+                        <span>Total budget</span>
+                        <h2 id="totalBudget">₹0.00</h2>
+                    </div>
+
+                    <div class="budget-stat">
+                        <span>Amount spent</span>
+                        <h2 id="budgetSpent">₹0.00</h2>
+                    </div>
+
+                    <div class="budget-stat">
+                        <span>Remaining budget</span>
+                        <h2 id="budgetRemaining">₹0.00</h2>
+                    </div>
+
+                </div>
+
+                <div class="budget-grid" id="budgetList"></div>
+
+                <div class="panel empty-state" id="budgetsEmpty">
+                    <i data-lucide="wallet"></i>
+                    <h3>Start budgeting</h3>
+                    <p>Create your first monthly spending limit.</p>
+                </div>
+
+            </section>
+
+            <!-- SAVINGS PAGE -->
+            <section class="page" id="savings" hidden>
+
+                <div class="section-toolbar">
+
+                    <div>
+                        <span class="eyebrow">BUILD YOUR FUTURE</span>
+                        <h2>Savings goals</h2>
+                        <p>Turn your financial dreams into achievable goals.</p>
+                    </div>
+
+                    <button class="primary-button" id="addGoalBtn">
+                        <i data-lucide="plus"></i>
+                        New goal
+                    </button>
+
+                </div>
+
+                <div class="panel savings-summary">
+                    <span>TOTAL SAVINGS ALLOCATED TO GOALS</span>
+                    <h2 id="totalGoalSavings">₹0.00</h2>
+                    <p id="goalSummaryText">Start building your future today.</p>
+                </div>
+
+                <div class="goals-grid" id="goalList"></div>
+
+                <div class="panel empty-state" id="goalsEmpty">
+                    <i data-lucide="target"></i>
+                    <h3>No savings goals yet</h3>
+                    <p>Create a goal for something that matters to you.</p>
+                </div>
+
+                <!-- SAVINGS SIMULATOR -->
+                <article class="panel simulator-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">PLAN AHEAD</span>
+                            <h2>Savings goal simulator</h2>
+                            <p>Discover how long it could take to reach your goal.</p>
+                        </div>
+                        <i data-lucide="calculator"></i>
+                    </div>
+
+                    <div class="simulator-grid">
+
+                        <div class="simulator-inputs">
+
+                            <label for="simTarget">Target amount</label>
+                            <input type="number" id="simTarget"
+                                min="1" step="0.01" value="100000">
+
+                            <label for="simSaved">Already saved</label>
+                            <input type="number" id="simSaved"
+                                min="0" step="0.01" value="25000">
+
+                            <label for="simMonthly">Monthly contribution</label>
+                            <input type="number" id="simMonthly"
+                                min="1" step="0.01" value="10000">
+
+                        </div>
+
+                        <div class="simulator-result">
+
+                            <span>ESTIMATED TIME TO GOAL</span>
+                            <h2 id="simMonths">8 months</h2>
+
+                            <div class="progress-track">
+                                <div class="progress-fill" id="simProgress"></div>
+                            </div>
+
+                            <p id="simPercentage">25% of your goal achieved</p>
+                            <p id="simRemaining">₹75,000 remaining</p>
+
+                        </div>
+
+                    </div>
+
+                    <p class="helper-text">
+                        Estimates assume fixed monthly contributions without interest or investment returns.
+                    </p>
+
+                </article>
+
+            </section>
+
+            <!-- ANALYTICS PAGE -->
+            <section class="page" id="analytics" hidden>
+
+                <div class="section-toolbar">
+                    <div>
+                        <span class="eyebrow">FINANCIAL INTELLIGENCE</span>
+                        <h2>Spending analytics</h2>
+                        <p>Discover patterns in your financial habits.</p>
+                    </div>
+
+                    <input type="month" id="analyticsMonth"
+                        aria-label="Analytics month">
+                </div>
+
+                <div class="analytics-stats">
+
+                    <article class="panel">
+                        <span>AVERAGE DAILY SPENDING</span>
+                        <h2 id="averageSpending">₹0.00</h2>
+                    </article>
+
+                    <article class="panel">
+                        <span>BIGGEST EXPENSE CATEGORY</span>
+                        <h2 id="topCategory">—</h2>
+                    </article>
+
+                    <article class="panel">
+                        <span>TOTAL TRANSACTIONS</span>
+                        <h2 id="transactionCount">0</h2>
+                    </article>
+
+                </div>
+
+                <div class="charts-grid">
+
+                    <article class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">TRENDS</span>
+                                <h2>Daily spending</h2>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="dailySpendingChart" role="img"
+                                aria-label="Daily spending trend"></canvas>
+                        </div>
+
+                    </article>
+
+                    <article class="panel">
+
+                        <div class="panel-header">
+                            <div>
+                                <span class="eyebrow">CATEGORIES</span>
+                                <h2>Expense distribution</h2>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="categoryChart" role="img"
+                                aria-label="Expense distribution chart"></canvas>
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <article class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">SPENDING HABITS</span>
+                            <h2>Category breakdown</h2>
+                        </div>
+                    </div>
+
+                    <div id="categoryBreakdown"></div>
+
+                </article>
+
+            </section>
+
+            <!-- CALENDAR PAGE -->
+            <section class="page" id="calendar" hidden>
+
+                <article class="panel calendar-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">PLAN YOUR FINANCES</span>
+                            <h2>Financial calendar</h2>
+                            <p>Explore your income and expenses by date.</p>
+                        </div>
+
+                        <button class="secondary-button" id="calendarToday">
+                            Today
+                        </button>
+                    </div>
+
+                    <div class="calendar-navigation">
+
+                        <button class="icon-button" id="prevMonth"
+                            aria-label="Previous month">
+                            <i data-lucide="chevron-left"></i>
+                        </button>
+
+                        <h3 id="calendarMonthTitle">Calendar</h3>
+
+                        <button class="icon-button" id="nextMonth"
+                            aria-label="Next month">
+                            <i data-lucide="chevron-right"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="calendar-weekdays">
+                        <span>Mon</span>
+                        <span>Tue</span>
+                        <span>Wed</span>
+                        <span>Thu</span>
+                        <span>Fri</span>
+                        <span>Sat</span>
+                        <span>Sun</span>
+                    </div>
+
+                    <div class="calendar-grid" id="calendarGrid"></div>
+
+                    <div class="calendar-legend">
+                        <span><span class="income-dot"></span> Income</span>
+                        <span><span class="expense-dot"></span> Expenses</span>
+                    </div>
+
+                    <div class="calendar-details">
+
+                        <div class="panel-header">
+                            <h3 id="selectedDateTitle">Selected date</h3>
+
+                            <button class="primary-button" id="calendarAddBtn">
+                                <i data-lucide="plus"></i>
+                                Add transaction
+                            </button>
+                        </div>
+
+                        <div id="calendarTransactions"></div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+            <!-- RECURRING BILLS PAGE -->
+            <section class="page" id="recurring" hidden>
+
+                <div class="section-toolbar">
+
+                    <div>
+                        <span class="eyebrow">STAY PREPARED</span>
+                        <h2>Recurring bills</h2>
+                        <p>Keep track of subscriptions and regular payments.</p>
+                    </div>
+
+                    <button class="primary-button" id="addRecurringBtn">
+                        <i data-lucide="plus"></i>
+                        Add recurring bill
+                    </button>
+
+                </div>
+
+                <article class="panel recurring-summary">
+                    <span>ESTIMATED MONTHLY RECURRING COST</span>
+                    <h2 id="recurringTotal">₹0.00</h2>
+                </article>
+
+                <div class="recurring-grid" id="recurringList"></div>
+
+                <div class="panel empty-state" id="recurringEmpty">
+                    <i data-lucide="repeat"></i>
+                    <h3>No recurring bills</h3>
+                    <p>Add subscriptions, rent and other regular payments.</p>
+                </div>
+
+            </section>
+
+            <!-- SETTINGS PAGE -->
+            <section class="page" id="settings" hidden>
+
+                <article class="panel settings-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">MAKE IT YOURS</span>
+                            <h2>Preferences</h2>
+                            <p>Customize your Finora experience.</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-row">
+                        <div>
+                            <h3>Appearance</h3>
+                            <p>Choose your preferred color theme.</p>
+                        </div>
+
+                        <select id="themeSetting" aria-label="Appearance">
+                            <option value="dark">Dark mode</option>
+                            <option value="light">Light mode</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-row">
+                        <div>
+                            <h3>Display currency</h3>
+                            <p>Changes currency labels, not exchange rates.</p>
+                        </div>
+
+                        <select id="currencySetting" aria-label="Display currency">
+                            <option value="INR">INR — Indian Rupee</option>
+                            <option value="USD">USD — US Dollar</option>
+                            <option value="EUR">EUR — Euro</option>
+                            <option value="GBP">GBP — British Pound</option>
+                            <option value="AED">AED — UAE Dirham</option>
+                        </select>
+                    </div>
+
+                </article>
+
+                <article class="panel settings-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <span class="eyebrow">YOUR INFORMATION</span>
+                            <h2>Data management</h2>
+                            <p>Your records are stored locally in your browser.</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-row">
+                        <div>
+                            <h3>Download backup</h3>
+                            <p>Export your financial records as a JSON file.</p>
+                        </div>
+
+                        <button class="secondary-button" id="backupBtn">
+                            <i data-lucide="download"></i>
+                            Backup data
+                        </button>
+                    </div>
+
+                    <div class="setting-row">
+                        <div>
+                            <h3>Restore backup</h3>
+                            <p>Import a previously exported Finora backup.</p>
+                        </div>
+
+                        <button class="secondary-button" id="restoreBtn">
+                            <i data-lucide="upload"></i>
+                            Restore data
+                        </button>
+
+                        <input type="file" id="restoreFile"
+                            accept=".json,application/json" hidden>
+                    </div>
+
+                    <div class="setting-row">
+                        <div>
+                            <h3>Explore demo data</h3>
+                            <p>Load sample financial records to explore the dashboard.</p>
+                        </div>
+
+                        <button class="secondary-button" id="demoDataBtn">
+                            Load demo
+                        </button>
+                    </div>
+
+                    <div class="setting-row danger-zone">
+                        <div>
+                            <h3>Reset all data</h3>
+                            <p>Permanently remove your locally saved financial records.</p>
+                        </div>
+
+                        <button class="danger-button" id="resetDataBtn">
+                            <i data-lucide="trash-2"></i>
+                            Reset data
+                        </button>
+                    </div>
+
+                </article>
+
+                <article class="panel about-panel">
+                    <h2>About Finora.</h2>
+                    <p>A personal finance dashboard designed to make money management simple and meaningful.</p>
+                    <p>Finora is a personal tracking tool, not a banking service or financial advisory platform.</p>
+                    <span>Version 1.0</span>
+                </article>
+
+            </section>
+
+            <!-- FOOTER -->
+            <footer class="footer">
+                <p>Designed for a financially mindful you.</p>
+                <p>Finora © <span id="currentYear">2026</span> — Version 1.0</p>
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- TRANSACTION MODAL -->
+    <dialog class="modal" id="transactionModal">
+
+        <form id="transactionForm">
+
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">MONEY ACTIVITY</span>
+                    <h2 id="transactionModalTitle">Add transaction</h2>
+                </div>
+
+                <button type="button" class="icon-button" data-close="transactionModal"
+                    aria-label="Close transaction form">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <input type="hidden" id="transactionId">
+
+            <div class="form-group">
+                <label for="transactionType">Transaction type</label>
+                <select id="transactionType" required>
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionName">Description</label>
+                <input type="text" id="transactionName"
+                    placeholder="e.g. Monthly salary, groceries"
+                    maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionAmount">Amount</label>
+                <input type="number" id="transactionAmount"
+                    placeholder="0.00" min="0.01" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionCategory">Category</label>
+                <select id="transactionCategory" required>
+                    <option value="Food">Food & drinks</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Bills">Bills & utilities</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Health">Health</option>
+                    <option value="Education">Education</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionDate">Date</label>
+                <input type="date" id="transactionDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="transactionNote">Notes (optional)</label>
+                <textarea id="transactionNote" rows="3"
+                    maxlength="300" placeholder="Add a note..."></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button"
+                    data-close="transactionModal">Cancel</button>
+
+                <button type="submit" class="primary-button">
+                    Save transaction
+                </button>
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <!-- BUDGET MODAL -->
+    <dialog class="modal" id="budgetModal">
+
+        <form id="budgetForm">
+
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">SPEND MINDFULLY</span>
+                    <h2 id="budgetModalTitle">Create budget</h2>
+                </div>
+
+                <button type="button" class="icon-button"
+                    data-close="budgetModal" aria-label="Close budget form">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <input type="hidden" id="budgetId">
+
+            <div class="form-group">
+                <label for="budgetCategory">Category</label>
+                <select id="budgetCategory" required>
+                    <option value="Food">Food & drinks</option>
+                    <option value="Shopping">Shopping</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Bills">Bills & utilities</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Health">Health</option>
+                    <option value="Education">Education</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="budgetAmount">Monthly spending limit</label>
+                <input type="number" id="budgetAmount"
+                    min="0.01" step="0.01" required>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button"
+                    data-close="budgetModal">Cancel</button>
+
+                <button type="submit" class="primary-button">
+                    Save budget
+                </button>
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <!-- SAVINGS GOAL MODAL -->
+    <dialog class="modal" id="goalModal">
+
+        <form id="goalForm">
+
+            <div class="modal-header">
+                <div>
+                    <span class="eyebrow">BUILD YOUR FUTURE</span>
+                    <h2 id="goalModalTitle">Create savings goal</h2>
+                </div>
+
+                <button type="button" class="icon-button"
+                    data-close="goalModal" aria-label="Close savings form">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <input type="hidden" id="goalId">
+
+            <div class="form-group">
+                <label for="goalName">Goal name</label>
+                <input type="text" id="goalName"
+                    placeholder="e.g. New laptop, vacation"
+                    maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="goalTarget">Target amount</label>
+                <input type="number" id="goalTarget"
+                    min="0.01" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="goalSaved">Already saved</label>
+                <input type="number" id="goalSaved"
+                    min="0" step="0.01" value="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="goalDeadline">Target date (optional)</label>
+                <input type="date" id="goalDeadline">
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button"
+                    data-close="goalModal">Cancel</button>
+
+                <button type="submit" class="primary-button">
+                    Save goal
+                </button>
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <!-- SAVINGS CONTRIBUTION MODAL -->
+    <dialog class="modal" id="contributionModal">
+
+        <form id="contributionForm">
+
+            <div class="modal-header">
+                <h2>Add savings</h2>
+
+                <button type="button" class="icon-button"
+                    data-close="contributionModal" aria-label="Close contribution form">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <input type="hidden" id="contributionGoalId">
+
+            <div class="form-group">
+                <label for="contributionAmount">Contribution amount</label>
+                <input type="number" id="contributionAmount"
+                    min="0.01" step="0.01" required>
+            </div>
+
+            <p class="helper-text">
+                Contributions track money allocated to a goal. They do not create an expense transaction.
+            </p>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button"
+                    data-close="contributionModal">Cancel</button>
+
+                <button type="submit" class="primary-button">
+                    Add savings
+                </button>
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <!-- RECURRING BILL MODAL -->
+    <dialog class="modal" id="recurringModal">
+
+        <form id="recurringForm">
+
+            <div class="modal-header">
+                <h2 id="recurringModalTitle">Add recurring bill</h2>
+
+                <button type="button" class="icon-button"
+                    data-close="recurringModal" aria-label="Close recurring bill form">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <input type="hidden" id="recurringId">
+
+            <div class="form-group">
+                <label for="recurringName">Bill or subscription name</label>
+                <input type="text" id="recurringName"
+                    placeholder="e.g. Netflix, rent, internet"
+                    maxlength="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="recurringAmount">Amount</label>
+                <input type="number" id="recurringAmount"
+                    min="0.01" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="recurringFrequency">Billing frequency</label>
+                <select id="recurringFrequency">
+                    <option value="monthly">Monthly</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recurringDate">Next payment date</label>
+                <input type="date" id="recurringDate" required>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button"
+                    data-close="recurringModal">Cancel</button>
+
+                <button type="submit" class="primary-button">
+                    Save recurring bill
+                </button>
+            </div>
+
+        </form>
+
+    </dialog>
+
+    <!-- CONFIRMATION MODAL -->
+    <dialog class="modal confirmation-modal" id="confirmModal">
+
+        <div class="modal-header">
+            <h2 id="confirmTitle">Are you sure?</h2>
+        </div>
+
+        <p id="confirmMessage">This action cannot be undone.</p>
+
+        <div class="modal-actions">
+
+            <button type="button" class="secondary-button"
+                data-close="confirmModal">Cancel</button>
+
+            <button type="button" class="danger-button" id="confirmAction">
+                Confirm
+            </button>
+
+        </div>
+
+    </dialog>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div class="toast-container" id="toastContainer"
+        role="status" aria-live="polite"></div>
+
+</body>
+</html>
